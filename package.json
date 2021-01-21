@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Node Server Testing Challenge",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "server": "nodemon index.js",
+    "start": "node index.js"
   },
   "jest": {
     "testEnvironment": "node"
