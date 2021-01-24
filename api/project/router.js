@@ -40,7 +40,36 @@ router.get("/:id/task", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     try {
         const [project] = await Project.addProject(req.body)
-        res.json(project)
+        res.status(201).json(project)
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.put("/:id", async (req, res, next) => {
+    const { id } = req.params;
+    const change = req.body;
+    try {
+        const editProject = await Project.updateProject(change, id)
+        res.status(201).json(editProject);
+    } catch (err) {
+        next(err)
+    }
+})
+
+router.delete("/:id", async (req, res, next) => {
+    try {
+        //this condition not responding
+        if (!req.params.id) {
+            res.status(404).json({
+                Message: "Project with specific id doesn't exsists."
+            })
+        } else {
+            await Project.removeProject(req.params.id)
+            res.status(201).json({
+                Message: "Selected Project got successfully deleted"
+            })
+        }
     } catch (err) {
         next(err);
     }

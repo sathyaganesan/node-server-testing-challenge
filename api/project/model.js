@@ -24,9 +24,23 @@ function getTasksByProjectId(id) {
     .select("project.id", "project.name as Project_name", "task.name as Task_name")
 }
 
+function updateProject(change, id) {
+    return db("project")
+        .where("id", id)
+        .update(change);
+}
+
+function removeProject(id) {
+    return db("project")
+        .where("id", id)
+        .del();
+}
+
 module.exports = {
     findProject,
     findProjectById,
     addProject,
-    getTasksByProjectId
+    getTasksByProjectId,
+    updateProject,
+    removeProject
 }
